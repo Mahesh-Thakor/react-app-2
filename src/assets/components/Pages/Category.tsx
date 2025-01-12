@@ -4,12 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from './../../../store';
 import { supabase } from './../../../Client/supabaseClient';
 
-interface SysUrlRewrite {
-  sys_url_rewrite: string;
-  target_id: number;
-  type: number;
-}
-
 interface Category {
   active_from: Date | null;
   active_to: Date | null;
@@ -72,7 +66,12 @@ const Category: React.FC = () => {
       }
     };
 
-    fetchURLAndCategory();
+    if(currentCategory){
+      setCategory(currentCategory);
+    }else{
+      fetchURLAndCategory();
+    }
+
   }, [url]);
 
   if (loading) {
