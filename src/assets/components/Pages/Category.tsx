@@ -67,6 +67,7 @@ const Category: React.FC = () => {
     };
 
     if(currentCategory){
+      setLoading(false);
       setCategory(currentCategory);
     }else{
       fetchURLAndCategory();
