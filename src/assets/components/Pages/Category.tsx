@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams,useNavigate  } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from './../../../store';
 import { supabase } from './../../../Client/supabaseClient';
+import Loader from './../../components/Common/Loader';
+import Product from './Product';
 
 interface Category {
   active_from: Date | null;
@@ -41,12 +43,11 @@ const Category: React.FC = () => {
           .single();
 
         if (urlError || !urlData) {
-          console.error('Error fetching sys_url_rewrite:', urlError);
           setLoading(false);
+          navigate('/404');
           return;
         }
 
-        // Fetch the category data
         const { data: fetchedCategory, error: categoryError } = await supabase
           .from('category')
           .select('*')
@@ -56,36 +57,43 @@ const Category: React.FC = () => {
         if (categoryError || !fetchedCategory) {
           console.error('Error fetching category:', categoryError);
           setLoading(false);
+          navigate('/404');
           return;
         }
 
         setCategory(fetchedCategory);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.log(error);
+        setLoading(false);
+        navigate('/404');
       } finally {
         setLoading(false);
       }
     };
 
-    if(currentCategory){
-      setLoading(false);
+    if (currentCategory) {
       setCategory(currentCategory);
-    }else{
+      setLoading(false);
+    } else {
       fetchURLAndCategory();
     }
-
-  }, [url]);
+  }, [url, navigate, currentCategory]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
-  if (!category) {
-    navigate('/404');
-    return null;
+  if (category) {
+    return <>
+      <h1>Category: {category.category_name}</h1>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full justify-center'>
+      {Array.from({ length: 8 }).map((_, index) => (
+          <Product key={index} />
+        ))}
+      </div>
+    </>;
   }
 
-  return <h1>Category: {category.category_name}</h1>;
 };
 
 export default Category;
