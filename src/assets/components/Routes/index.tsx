@@ -11,7 +11,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/category/:url" element={<Category />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/404" element={<NotFound />} />
         </Routes>
     );
 };

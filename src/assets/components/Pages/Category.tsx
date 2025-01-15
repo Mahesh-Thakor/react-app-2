@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate  } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from './../../../store';
 import { supabase } from './../../../Client/supabaseClient';
@@ -23,6 +23,7 @@ interface Category {
 }
 
 const Category: React.FC = () => {
+  const navigate = useNavigate();
   const { url } = useParams<{ url: string }>();
   const currentCategory = useSelector((state: RootState) => state.category.currentCategory);
   const [category, setCategory] = useState<Category | null>(null);
@@ -80,7 +81,8 @@ const Category: React.FC = () => {
   }
 
   if (!category) {
-    return <div>Category not found</div>;
+    navigate('/404');
+    return null;
   }
 
   return <h1>Category: {category.category_name}</h1>;
