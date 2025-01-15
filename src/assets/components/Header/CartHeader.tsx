@@ -27,7 +27,7 @@ const CartHeader: React.FC = () => {
 
 
             {/* Cart Item Listing */}
-            <div id="CartItemsList" className={`fixed right-4 top-20 z-10 mx-auto max-w-sm space-y-4 overflow-hidden rounded-lg bg-white p-4 antialiased shadow-lg dark:bg-gray-800 transition-transform duration-300 ${isCartVisible ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div id="CartItemsList" onClick={toggleCartItems} className={`fixed right-4 top-20 z-10 mx-auto max-w-sm space-y-4 overflow-hidden rounded-lg bg-white p-4 antialiased shadow-lg dark:bg-gray-800 transition-transform duration-300 ${isCartVisible ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="grid grid-cols-2">
                     <div>
                     <a href="#" className="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline">Apple iPhone 15</a>
