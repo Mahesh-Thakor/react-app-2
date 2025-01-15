@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from './../../../store';
 import { supabase } from './../../../Client/supabaseClient';
 import Loader from './../../components/Common/Loader';
-import Product from './Product';
+import ProductCard from './ProductCard';
 
 interface Category {
   active_from: Date | null;
@@ -88,7 +88,7 @@ const Category: React.FC = () => {
       <h1>Category: {category.category_name}</h1>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full justify-center'>
       {Array.from({ length: 8 }).map((_, index) => (
-          <Product key={index} />
+          <ProductCard key={index} />
         ))}
       </div>
     </>;
