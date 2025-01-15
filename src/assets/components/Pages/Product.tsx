@@ -1,4 +1,4 @@
-const Product: Reac.FC = () => {
+const Product: React.FC = () => {
 
     return (
         <div className="mt-2 w-72 group border-gray-100/30 flex max-w-xs flex-col self-center overflow-hidden rounded-lg border bg-gray-700 shadow-md">
